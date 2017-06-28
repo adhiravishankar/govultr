@@ -15,7 +15,5 @@ func NewClient(key string) *Client {
 }
 
 func NewRequest(key string) *gorequest.SuperAgent {
-	request := gorequest.New()
-	request.Header = map[string]string{"API-Key": key}
-	return request
+	return gorequest.New().Set("API-Key", key)
 }

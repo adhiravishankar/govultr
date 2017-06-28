@@ -1,6 +1,9 @@
 package govultr
 
-import "github.com/parnurzeal/gorequest"
+import (
+	"github.com/parnurzeal/gorequest"
+	"encoding/json"
+)
 
 func AccountInfo(client *Client) (gorequest.Response, string, []error) {
 	request := NewRequest(client.APIKey)
@@ -22,7 +25,19 @@ func ListBackups(client *Client) (gorequest.Response, string, []error) {
 	return request.Get(API_URL + "v1/backup/list").End()
 }
 
-func ListOS(client *Client) (gorequest.Response, string, []error) {
+func ListOS(client *Client) (map[string]OS, []error) {
 	request := NewRequest(client.APIKey)
-	return request.Get(API_URL + "v1/os/list").End()
+	_, body, errs := request.Get(API_URL + "v1/os/list").End()
+	if len(errs) > 1 {
+		return nil, errs
+	} else {
+		var oses map[string]OS
+		err := json.Unmarshal([]byte(body), &oses)
+		if err != nil {
+			var errs []error
+			return nil, append(errs, err)
+		} else {
+			return oses, nil
+		}
+	}
 }
