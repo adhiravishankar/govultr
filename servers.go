@@ -36,8 +36,8 @@ func GetBackupSchedule(client *Client, sub int) {
 		SendString("SUBID=" + strconv.Itoa(sub)).End()
 }
 
-func SetBackupSchedule(client *Client, sub int, cron_type string, hour int, dow int, dom int) (bool, []error) {
-	mapForm := structs.Map(SetBackupScheduleForm{Sub:sub, Cron:cron_type, Hour:hour, DayOfWeek: dow, DayOfMonth: dom})
+func SetBackupSchedule(client *Client, form *SetBackupScheduleForm) (bool, []error) {
+	mapForm := structs.Map(form)
 	res, _, errs := gorequest.New().Post(API_URL + "/v1/server/backup_enable").Set("API-Key", client.APIKey).
 		SendMap(mapForm).End()
 	return NoResponse(res, errs)

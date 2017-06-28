@@ -11,8 +11,11 @@ type Client struct {
 	APIKey string
 }
 
-func NewClient(key string) *Client {
-	return &Client{ APIKey: key }
+func NewClient(key string) (*Client, error) {
+	if len(key) == 0 {
+		return nil, error("vultr: client")
+	}
+	return &Client{ APIKey: key }, nil
 }
 
 func UnmarshalJson(body string, errs []error, entity interface{}) []error  {
