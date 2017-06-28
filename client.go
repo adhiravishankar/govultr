@@ -10,11 +10,11 @@ type Client struct {
 	APIKey string
 }
 
-func newClient(key string) *Client {
+func NewClient(key string) *Client {
 	return &Client{ APIKey: key }
 }
 
-func newRequest(key string) *gorequest.SuperAgent {
+func NewRequest(key string) *gorequest.SuperAgent {
 	request := gorequest.New()
 	request.Header = map[string]string{"API-Key": key}
 	return request

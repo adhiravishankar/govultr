@@ -1,35 +1,28 @@
 package govultr
 
-import (
-	"fmt"
-)
+import "github.com/parnurzeal/gorequest"
 
-func AccountInfo(client *Client) {
-	request := newRequest(client.APIKey)
-	resp, body , err := request.Get(API_URL + "v1/account/info").End()
-	fmt.Println(resp, body, err)
+func AccountInfo(client *Client) (gorequest.Response, string, []error) {
+	request := NewRequest(client.APIKey)
+	return request.Get(API_URL + "v1/account/info").End()
 }
 
-func AuthInfo(client *Client) {
-	request := newRequest(client.APIKey)
-	resp, body , err := request.Get(API_URL + "v1/auth/info").End()
-	fmt.Println(resp, body, err)
+func AuthInfo(client *Client) (gorequest.Response, string, []error) {
+	request := NewRequest(client.APIKey)
+	return request.Get(API_URL + "v1/auth/info").End()
 }
 
-func ListApps(client *Client) {
-	request := newRequest(client.APIKey)
-	resp, body , err := request.Get(API_URL + "v1/app/list").End()
-	fmt.Println(resp, body, err)
+func ListApps(client *Client) (gorequest.Response, string, []error) {
+	request := NewRequest(client.APIKey)
+	return request.Get(API_URL + "v1/app/list").End()
 }
 
-func ListBackups(client *Client) {
-	request := newRequest(client.APIKey)
-	resp, body , err := request.Get(API_URL + "v1/backup/list").End()
-	fmt.Println(resp, body, err)
+func ListBackups(client *Client) (gorequest.Response, string, []error) {
+	request := NewRequest(client.APIKey)
+	return request.Get(API_URL + "v1/backup/list").End()
 }
 
-func ListOS(client *Client) {
-	request := newRequest(client.APIKey)
-	resp, body , err := request.Get(API_URL + "v1/os/list").End()
-	fmt.Println(resp, body, err)
+func ListOS(client *Client) (gorequest.Response, string, []error) {
+	request := NewRequest(client.APIKey)
+	return request.Get(API_URL + "v1/os/list").End()
 }
