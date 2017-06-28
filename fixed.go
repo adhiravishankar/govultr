@@ -6,28 +6,23 @@ import (
 )
 
 func AccountInfo(client *Client) (gorequest.Response, string, []error) {
-	request := NewRequest(client.APIKey)
-	return request.Get(API_URL + "v1/account/info").End()
+	return gorequest.New().Get(API_URL + "v1/account/info").Set("API-Key", client.APIKey).End()
 }
 
 func AuthInfo(client *Client) (gorequest.Response, string, []error) {
-	request := NewRequest(client.APIKey)
-	return request.Get(API_URL + "v1/auth/info").End()
+	return gorequest.New().Get(API_URL + "v1/auth/info").Set("API-Key", client.APIKey).End()
 }
 
 func ListApps(client *Client) (gorequest.Response, string, []error) {
-	request := NewRequest(client.APIKey)
-	return request.Get(API_URL + "v1/app/list").End()
+	return gorequest.New().Get(API_URL + "v1/app/list").Set("API-Key", client.APIKey).End()
 }
 
 func ListBackups(client *Client) (gorequest.Response, string, []error) {
-	request := NewRequest(client.APIKey)
-	return request.Get(API_URL + "v1/backup/list").End()
+	return gorequest.New().Get(API_URL + "v1/backup/list").Set("API-Key", client.APIKey).End()
 }
 
 func ListOS(client *Client) (map[string]OS, []error) {
-	request := NewRequest(client.APIKey)
-	_, body, errs := request.Get(API_URL + "v1/os/list").End()
+	_, body, errs := gorequest.New().Get(API_URL + "v1/os/list").Set("API-Key", client.APIKey).End()
 	if len(errs) > 1 {
 		return nil, errs
 	} else {
