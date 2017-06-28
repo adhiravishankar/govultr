@@ -3,6 +3,7 @@ package govultr
 import (
 	"encoding/json"
 	"github.com/parnurzeal/gorequest"
+	"github.com/pkg/errors"
 )
 
 var API_URL = "https://api.vultr.com/"
@@ -13,7 +14,7 @@ type Client struct {
 
 func NewClient(key string) (*Client, error) {
 	if len(key) == 0 {
-		return nil, error("vultr: client")
+		return nil, errors.New("vultr: client")
 	}
 	return &Client{ APIKey: key }, nil
 }
