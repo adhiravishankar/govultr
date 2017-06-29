@@ -4,6 +4,7 @@ import (
 	"github.com/parnurzeal/gorequest"
 )
 
+//noinspection GoUnusedExportedFunction
 func AccountInfo(client *Client) (Account, []error) {
 	_, body, errs := gorequest.New().Get(API_URL + "v1/account/info").Set("API-Key", client.APIKey).End()
 	var account Account
@@ -11,6 +12,7 @@ func AccountInfo(client *Client) (Account, []error) {
 	return account, errs2
 }
 
+//noinspection GoUnusedExportedFunction
 func AuthInfo(client *Client) (Auth, []error) {
 	_, body, errs := gorequest.New().Get(API_URL + "v1/auth/info").Set("API-Key", client.APIKey).End()
 	var auth Auth
@@ -18,6 +20,7 @@ func AuthInfo(client *Client) (Auth, []error) {
 	return auth, errs2
 }
 
+//noinspection GoUnusedExportedFunction
 func ListApps(client *Client) (map[string]App, []error) {
 	_, body, errs := gorequest.New().Get(API_URL + "v1/app/list").Set("API-Key", client.APIKey).End()
 	var apps map[string]App
@@ -25,6 +28,7 @@ func ListApps(client *Client) (map[string]App, []error) {
 	return apps, errs2
 }
 
+//noinspection GoUnusedExportedFunction
 func ListBackups(client *Client) (map[string]Backup, []error) {
 	_, body, errs := gorequest.New().Get(API_URL + "v1/backup/list").Set("API-Key", client.APIKey).End()
 	var backups map[string]Backup
@@ -32,6 +36,7 @@ func ListBackups(client *Client) (map[string]Backup, []error) {
 	return backups, errs2
 }
 
+//noinspection GoUnusedExportedFunction
 func ListOS(client *Client) (map[string]OS, []error) {
 	_, body, errs := gorequest.New().Get(API_URL + "v1/os/list").Set("API-Key", client.APIKey).End()
 	var oses map[string]OS

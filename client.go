@@ -12,6 +12,7 @@ type Client struct {
 	APIKey string
 }
 
+//noinspection GoUnusedExportedFunction
 func NewClient(key string) (*Client, error) {
 	if len(key) == 0 {
 		return nil, errors.New("vultr: client")
