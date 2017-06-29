@@ -189,7 +189,7 @@ type Server struct {
 	Location string `json:"location"`
 	DCID string `json:"DCID"`
 	DefaultPassword string `json:"default_password"`
-	DateCreated time.Time `json:"date_created"`
+	DateCreated string `json:"date_created"`
 	PendingCharges string `json:"pending_charges"`
 	Status string `json:"status"`
 	CostPerMonth string `json:"cost_per_month"`
