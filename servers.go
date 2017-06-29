@@ -14,9 +14,12 @@ func ChangeApp(client *Client, sub int, app int) (bool, []error) {
 	return NoResponse(res, errs)
 }
 
-func ChangeAppList(client *Client, sub int) {
-	gorequest.New().Get(API_URL + "/v1/server/app_change_list").Set("API-Key", client.APIKey).
+func ChangeAppList(client *Client, sub int) (map[string]App, []error) {
+	_, body ,errs := gorequest.New().Get(API_URL + "/v1/server/app_change_list").Set("API-Key", client.APIKey).
 		Query("SUBID=" + strconv.Itoa(sub)).End()
+	var appChangesList map[string]App
+	errs2 := UnmarshalJson(body, errs, &appChangesList)
+	return appChangesList, errs2
 }
 
 func DisableBackups(client *Client, sub int) (bool, []error) {
@@ -31,9 +34,12 @@ func EnableBackups(client *Client, sub int) (bool, []error) {
 	return NoResponse(res, errs)
 }
 
-func GetBackupSchedule(client *Client, sub int) {
-	gorequest.New().Post(API_URL + "/v1/server/backup_disable").Set("API-Key", client.APIKey).
+func GetBackupSchedule(client *Client, sub int) (BackupSchedule, []error) {
+	_, body ,errs := gorequest.New().Post(API_URL + "/v1/server/backup_disable").Set("API-Key", client.APIKey).
 		SendString("SUBID=" + strconv.Itoa(sub)).End()
+	var schedule BackupSchedule
+	errs2 := UnmarshalJson(body, errs, &schedule)
+	return schedule, errs2
 }
 
 func SetBackupSchedule(client *Client, form *SetBackupScheduleForm) (bool, []error) {
@@ -43,14 +49,21 @@ func SetBackupSchedule(client *Client, form *SetBackupScheduleForm) (bool, []err
 	return NoResponse(res, errs)
 }
 
-func GetBandwidth(client *Client, sub int) {
-	gorequest.New().Get(API_URL + "/v1/server/bandwidth").Set("API-Key", client.APIKey).
+func GetBandwidth(client *Client, sub int) (Bandwidth, []error) {
+	_, body, errs := gorequest.New().Get(API_URL + "/v1/server/bandwidth").Set("API-Key", client.APIKey).
 		Query("SUBID=" + strconv.Itoa(sub)).End()
+	var bandwidth Bandwidth
+	errs2 := UnmarshalJson(body, errs, &bandwidth)
+	return bandwidth, errs2
 }
 
-func CreateServer(client *Client, form *CreateServerForm) {
-	gorequest.New().Post(API_URL + "/v1/server/create").Set("API-Key", client.APIKey).
+func CreateServer(client *Client, form *CreateServerForm) (string, []error) {
+	_, body, errs := gorequest.New().Post(API_URL + "/v1/server/create").Set("API-Key", client.APIKey).
 		SendMap(form).End()
+	var response map[string]string
+	errs2 := UnmarshalJson(body, errs, &response)
+	id := response["SUBID"]
+	return id, errs2
 }
 
 func CreateIPv4(client *Client, form *CreateServerIPv4Form) (bool, []error) {
@@ -76,12 +89,20 @@ func SetGroupFirewall(client *Client, sub int, firewallgroup int) (bool, []error
 	return NoResponse(res, errs)
 }
 
-func GetAppInfo(client *Client, sub int) {
-	gorequest.New().Get(API_URL + "/v1/server/get_app_info").Set("API-Key", client.APIKey).End()
+func GetAppInfo(client *Client, sub int) (string, []error) {
+	_, body, errs := gorequest.New().Get(API_URL + "/v1/server/get_app_info").Set("API-Key", client.APIKey).End()
+	var response map[string]string
+	errs2 := UnmarshalJson(body, errs, &response)
+	id := response["app_info"]
+	return id, errs2
 }
 
-func GetUserData(client *Client, sub int) {
-	gorequest.New().Get(API_URL + "/v1/server/get_user_data").Set("API-Key", client.APIKey).End()
+func GetUserData(client *Client, sub int) (string, []error) {
+	_, body, errs := gorequest.New().Get(API_URL + "/v1/server/get_user_data").Set("API-Key", client.APIKey).End()
+	var response map[string]string
+	errs2 := UnmarshalJson(body, errs, &response)
+	id := response["userdata"]
+	return id, errs2
 }
 
 func HaltServer(client *Client, sub int) (bool, []error) {
@@ -104,8 +125,11 @@ func DetachISO(client *Client, sub int) (bool, []error) {
 	return NoResponse(res, errs)
 }
 
-func ISOStatus(client *Client, sub int) {
-	gorequest.New().Get(API_URL + "/v1/server/iso_status").Set("API-Key", client.APIKey).End()
+func ISOStatus(client *Client, sub int) (IsoStatus, []error) {
+	_, body, errs := gorequest.New().Get(API_URL + "/v1/server/iso_status").Set("API-Key", client.APIKey).End()
+	var response IsoStatus
+	errs2 := UnmarshalJson(body, errs, &response)
+	return response, errs2
 }
 
 func SetLabel(client *Client, sub int, label string) (bool, []error) {
@@ -128,16 +152,23 @@ func ListIPv6(client *Client, sub int) {
 	gorequest.New().Get(API_URL + "/v1/server/list_ipv6").Set("API-Key", client.APIKey).End()
 }
 
-func ListNeighbors(client *Client, sub int) {
-	gorequest.New().Get(API_URL + "/v1/server/neighbors").Set("API-Key", client.APIKey).End()
+func ListNeighbors(client *Client, sub int) ([]int, []error) {
+	_, body, errs := gorequest.New().Get(API_URL + "/v1/server/neighbors").Set("API-Key", client.APIKey).End()
+	var neighbors []int
+	errs2 := UnmarshalJson(body, errs, &neighbors)
+	return neighbors, errs2
 }
 
-func ChangeOS(client *Client, sub int, os int) {
-	gorequest.New().Get(API_URL + "/v1/server/os_change").Set("API-Key", client.APIKey).End()
+func ChangeOS(client *Client, sub int, os int) (bool, []error) {
+	res, _, errs := gorequest.New().Get(API_URL + "/v1/server/os_change").Set("API-Key", client.APIKey).End()
+	return NoResponse(res, errs)
 }
 
-func ChangeOSList(client *Client, sub int) {
-	gorequest.New().Post(API_URL + "/v1/server/os_change_list").Set("API-Key", client.APIKey).End()
+func ChangeOSList(client *Client, sub int) (map[string]OS, []error) {
+	_, body, errs := gorequest.New().Post(API_URL + "/v1/server/os_change_list").Set("API-Key", client.APIKey).End()
+	var osList map[string]OS
+	errs2 := UnmarshalJson(body, errs, &osList)
+	return osList, errs2
 }
 
 func EnablePrivateNetwork(client *Client, sub int) (bool, []error) {

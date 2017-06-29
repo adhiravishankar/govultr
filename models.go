@@ -108,6 +108,11 @@ type ISO struct {
 	Status string `json:"status"`
 }
 
+type IsoStatus struct {
+	State string `json:"state"`
+	ISOID string `json:"ISOID"`
+}
+
 type OS struct {
 	Id int `json:"OSID"`
 	Name string `json:"name"`
@@ -207,6 +212,11 @@ type Server struct {
 	OSId string `json:"OSID"`
 	AppId string `json:"APPID"`
 	FirewallGroupId string `json:"FIREWALLGROUPID"`
+}
+
+type ServerListIPv6 struct {
+	IP string `json:"ip"`
+	Reverse string `json:"reverse"`
 }
 
 type V6Network struct {
