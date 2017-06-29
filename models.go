@@ -5,7 +5,7 @@ import "time"
 type Account struct {
 	Balance string `json:"balance"`
 	PendingCharges string `json:"pending_charges"`
-	LastPaymentDate string `json:"last_payment_date"`
+	LastPaymentDate time.Time `json:"last_payment_date"`
 	LastPaymentAmount string `json:"last_payment_amount"`
 }
 
@@ -57,7 +57,7 @@ type BlockSimple struct {
 
 type Block struct {
 	Sub int `json:"SUBID"`
-	DateCreated string `json:"date_created"`
+	DateCreated time.Time `json:"date_created"`
 	CostPerMonth int `json:"cost_per_month"`
 	Status string `json:"status"`
 	SizeGb int `json:"size_gb"`
@@ -68,7 +68,7 @@ type Block struct {
 
 type DnsDomain struct {
 	Domain string `json:"domain"`
-	DateCreated string `json:"date_created"`
+	DateCreated time.Time `json:"date_created"`
 }
 
 type DnsRecords struct {
@@ -101,7 +101,7 @@ type FirewallRule struct {
 
 type ISO struct {
 	Id int `json:"ISOID"`
-	DateCreated string `json:"date_created"`
+	DateCreated time.Time `json:"date_created"`
 	Filename string `json:"filename"`
 	Size int `json:"size"`
 	Md5Sum string `json:"md5sum"`
@@ -152,7 +152,7 @@ type ReservedIP struct {
 
 type SnapShot struct {
 	Id string `json:"SNAPSHOTID"`
-	DateCreated string `json:"date_created"`
+	DateCreated time.Time `json:"date_created"`
 	Description string `json:"description"`
 	Size string `json:"size"`
 	Status string `json:"status"`
@@ -167,8 +167,8 @@ type SshKey struct {
 
 type StartupScript struct {
 	Id string `json:"SCRIPTID"`
-	DateCreated string `json:"date_created"`
-	DateModified string `json:"date_modified"`
+	DateCreated time.Time `json:"date_created"`
+	DateModified time.Time `json:"date_modified"`
 	Name string `json:"name"`
 	Type string `json:"type"`
 	Script string `json:"script"`
@@ -184,7 +184,7 @@ type Server struct {
 	Location string `json:"location"`
 	DCID string `json:"DCID"`
 	DefaultPassword string `json:"default_password"`
-	DateCreated string `json:"date_created"`
+	DateCreated time.Time `json:"date_created"`
 	PendingCharges string `json:"pending_charges"`
 	Status string `json:"status"`
 	CostPerMonth string `json:"cost_per_month"`
